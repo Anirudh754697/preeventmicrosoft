@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FinWise - Savings & Goals</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+    body {
+        font-family: "Poppins", Arial, sans-serif;
+        margin: 0;
+        background: #121212;
+        color: #e0e0e0;
+    }
+
+    header {
+        background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+        padding: 50px 20px;
+        text-align: center;
+        color: #ffd700;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+    }
+
+    header h1 {
+        margin-bottom: 10px;
+        font-size: 2.5rem;
+        letter-spacing: 1.5px;
+    }
+
+    header p {
+        color: #b0b0b0;
+        font-size: 1.1rem;
+    }
+
+    main {
+        max-width: 950px;
+        margin: 40px auto;
+        padding: 30px;
+        background: #1e1e1e;
+        border-radius: 16px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+        display: flex;
+        gap: 30px;
+        flex-wrap: wrap;
+    }
+
+    form {
+        flex: 1 1 350px;
+    }
+
+    label {
+        display: block;
+        margin: 12px 0 6px;
+        color: #00c853;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #333;
+        border-radius: 8px;
+        background: #121212;
+        color: #ffd700;
+        font-size: 1rem;
+    }
+
+    input::placeholder {
+        color: #666;
+    }
+
+    button {
+        margin-top: 15px;
+        padding: 12px 25px;
+        border: none;
+        background: #00c853;
+        color: #121212;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    button:hover {
+        background: #00e676;
+        box-shadow: 0 0 12px #00c853;
+    }
+
+    canvas {
+        flex: 1 1 400px;
+        max-width: 100%;
+        background: #121212;
+        border-radius: 12px;
+        padding: 15px;
+        align-self: center;
+    }
+
+    .result {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 1.2rem;
+        color: #ffd700;
+        flex-basis: 100%;
+    }
+
+    footer {
+        background: #0d0d0d;
+        text-align: center;
+        padding: 20px;
+        margin-top: 30px;
+        border-top: 2px solid #00c853;
+        color: #777;
+    }
+
+    footer a {
+        color: #00c853;
+        text-decoration: none;
+    }
+
+    footer a:hover {
+        color: #00e676;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>🎯 Savings & Goals</h1>
+    <p>Set Goals, Track Progress & Automate Savings</p>
+</header>
+
+<main>
+    <form id="savingsForm">
+        <label for="goal">Savings Goal (₹):</label>
+        <input type="number" id="goal" placeholder="Enter your target amount" required>
+
+        <label for="monthly">Monthly Contribution (₹):</label>
+        <input type="number" id="monthly" placeholder="Enter monthly savings" required>
+
+        <label for="current">Current Savings (₹):</label>
+        <input type="number" id="current" placeholder="Enter current savings" required>
+
+        <button type="submit">Calculate Progress</button>
+    </form>
+
+    <canvas id="savingsChart"></canvas>
+    <div class="result" id="savingsResult">Enter your details to see savings progress.</div>
+</main>
+
+<footer>
+    <a href="index.html">⬅ Back to Services</a>
+    <p>&copy; 2025 FinWise. All rights reserved.</p>
+</footer>
+
+<script>
+    const ctx = document.getElementById('savingsChart').getContext('2d');
+    let savingsChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Saved', 'Remaining'],
+            datasets: [{
+                data: [0, 100],
+                backgroundColor: ['#00c853', '#ffd700'],
+                borderColor: ['#00c853', '#ffd700'],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { labels: { color: '#e0e0e0' } }
+            }
+        }
+    });
+
+    document.getElementById('savingsForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const goal = parseFloat(document.getElementById('goal').value);
+        const monthly = parseFloat(document.getElementById('monthly').value);
+        const current = parseFloat(document.getElementById('current').value);
+
+        const totalSaved = current + monthly;
+        const remaining = goal - totalSaved > 0 ? goal - totalSaved : 0;
+
+        savingsChart.data.datasets[0].data = [totalSaved, remaining];
+        savingsChart.update();
+
+        document.getElementById('savingsResult').innerText =
+            `Total Saved: ₹${totalSaved.toFixed(2)} | Remaining: ₹${remaining.toFixed(2)}`;
+    });
+</script>
+
+</body>
+</html>

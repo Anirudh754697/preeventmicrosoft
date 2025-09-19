@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FinWise - Services</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<header>
+    <h1>FinWise - Services</h1>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="dashboard.html">Dashboard</a>
+    </nav>
+</header>
+
+<section id="budget" class="service-section">
+    <h2>Budget Management</h2>
+    <p>Track income & expenses, visualize monthly/yearly charts, and receive alerts for overspending.</p>
+    <div class="card">
+        <div class="alert" id="budgetAlert">⚠️ You are overspending this month!</div>
+        <label>Monthly Income (₹):</label>
+        <input type="number" id="income" placeholder="Enter income">
+        <label>Monthly Expenses (₹):</label>
+        <input type="number" id="expenses" placeholder="Enter expenses">
+        <button onclick="checkBudget()">Check Budget</button>
+        <canvas id="budgetChart" width="400" height="200"></canvas>
+    </div>
+</section>
+
+<section id="investment" class="service-section">
+    <h2>Investment Planning</h2>
+    <p>Get investment suggestions based on your risk profile. Track stocks, mutual funds, crypto, and your portfolio.</p>
+    <div class="card">
+        <canvas id="investmentChart" width="400" height="200"></canvas>
+        <p>Portfolio Tracker: Stocks 40%, Mutual Funds 35%, Crypto 25%.</p>
+    </div>
+</section>
+
+<section id="tax" class="service-section">
+    <h2>Tax Management</h2>
+    <p>Calculate taxes, get reminders, store tax documents, and optimize tax-saving investments.</p>
+    <div class="card">
+        <label>Annual Income (₹):</label>
+        <input type="number" id="taxIncome" placeholder="Enter income">
+        <button onclick="calculateTax()">Calculate Tax</button>
+        <p id="taxResult"></p>
+    </div>
+</section>
+
+<section id="loan" class="service-section">
+    <h2>Loan & Credit Management</h2>
+    <p>Track personal/business loans, calculate EMIs, and monitor credit scores with tips for improvement.</p>
+    <div class="card">
+        <label>Loan Amount (₹):</label>
+        <input type="number" id="loanAmount">
+        <label>Interest Rate (%):</label>
+        <input type="number" id="interestRate">
+        <label>Duration (years):</label>
+        <input type="number" id="loanYears">
+        <button onclick="calculateEMI()">Calculate EMI</button>
+        <p id="emiResult"></p>
+    </div>
+</section>
+
+<section id="savings" class="service-section">
+    <h2>Savings & Goals</h2>
+    <p>Set financial goals, automate savings, and track progress for vacations, emergency funds, or other targets.</p>
+    <div class="card">
+        <label>Goal Name:</label>
+        <input type="text" id="goalName" placeholder="Vacation, Emergency Fund, etc.">
+        <label>Target Amount (₹):</label>
+        <input type="number" id="goalAmount">
+        <label>Monthly Saving (₹):</label>
+        <input type="number" id="monthlySaving">
+        <button onclick="calculateGoal()">Track Progress</button>
+        <p id="goalResult"></p>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2025 FinWise. All rights reserved.</p>
+</footer>
+
+<script src="script.js"></script>
+<script>
+// ====== Budget Management ======
+const budgetCtx = document.getElementById('budgetChart').getContext('2d');
+const budgetChart = new Chart(budgetCtx, {
+    type: 'bar',
+    data: {
+        labels: ['Income', 'Expenses'],
+        datasets: [{
+            label: '₹ Amount',
+            data: [0,0],
+            backgroundColor: ['#2d3e50','#f39c12']
+        }]
+    },
+    options: {responsive:true, scales:{y:{beginAtZero:true}}}
+});
+
+function checkBudget(){
+    const income = parseFloat(document.getElementById('income').value) || 0;
+    const expenses = parseFloat(document.getElementById('expenses').value) || 0;
+    budgetChart.data.datasets[0].data = [income, expenses];
+    budgetChart.update();
+    document.getElementById('budgetAlert').style.display = (expenses>income) ? 'block':'none';
+}
+
+// ====== Investment Planning ======
+const invCtx = document.getElementById('investmentChart').getContext('2d');
+new Chart(invCtx, {
+    type: 'pie',
+    data: {
+        labels: ['Stocks','Mutual Funds','Crypto'],
+        datasets:[{data:[40,35,25], backgroundColor:['#2d3e50','#f39c12','#27ae60']}]
+    },
+    options:{responsive:true}
+});
+
+// ====== Tax Management ======
+function calculateTax(){
+    const income = parseFloat(document.getElementById('taxIncome').value) || 0;
+    let tax = 0;
+    if(income<=250000) tax=0;
+    else if(income<=500000) tax=(income-250000)*0.05;
+    else if(income<=1000000) tax=12500+(income-500000)*0.2;
+    else tax=112500+(income-1000000)*0.3;
+    document.getElementById('taxResult').innerText = `Estimated Tax: ₹${tax.toFixed(2)}`;
+}
+
+// ====== Loan & Credit Management ======
+function calculateEMI(){
+    const P=parseFloat(document.getElementById('loanAmount').value)||0;
+    const R=parseFloat(document.getElementById('interestRate').value)/12/100||0;
+    const N=parseFloat(document.getElementById('loanYears').value)*12||0;
+    const EMI = (P*R*Math.pow(1+R,N))/(Math.pow(1+R,N)-1) || 0;
+    document.getElementById('emiResult').innerText = `Monthly EMI: ₹${EMI.toFixed(2)}`;
+}
+
+// ====== Savings & Goals ======
+function calculateGoal(){
+    const goalAmt = parseFloat(document.getElementById('goalAmount').value)||0;
+    const monthly = parseFloat(document.getElementById('monthlySaving').value)||0;
+    const months = monthly>0 ? Math.ceil(goalAmt/monthly) : 0;
+    document.getElementById('goalResult').innerText = (months>0)
+        ? `You will achieve your goal in ${months} months.`
+        : 'Please enter valid values.';
+}
+</script>
+
+</body>
+</html>

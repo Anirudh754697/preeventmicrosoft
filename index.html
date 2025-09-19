@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FinWise - Smart Financial Management</title>
+<link rel="stylesheet" href="style.css">
+<style>
+    body {
+        font-family: "Poppins", Arial, sans-serif;
+        margin: 0;
+        background: #121212;
+        color: #e0e0e0;
+    }
+
+    /* Header / Hero */
+    header {
+        background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+        padding: 80px 20px;
+        text-align: center;
+        color: #ffd700;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+    }
+
+    header h1 {
+        font-size: 3rem;
+        margin-bottom: 20px;
+        letter-spacing: 1.5px;
+    }
+
+    header p {
+        font-size: 1.2rem;
+        color: #b0b0b0;
+        margin-bottom: 30px;
+    }
+
+    .hero-buttons button {
+        padding: 15px 35px;
+        margin: 10px;
+        border: none;
+        border-radius: 8px;
+        font-weight: bold;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .get-started {
+        background: #00c853;
+        color: #121212;
+    }
+
+    .get-started:hover { background: #00e676; }
+
+    .learn-more {
+        background: transparent;
+        color: #ffd700;
+        border: 2px solid #ffd700;
+    }
+
+    .learn-more:hover { background: #ffd700; color: #121212; }
+
+    /* Services Section */
+    .services {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 25px;
+        padding: 60px 20px;
+        text-align: center;
+    }
+
+    .service-card {
+        background: #1e1e1e;
+        padding: 30px;
+        width: 240px;
+        border-radius: 16px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .service-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 30px rgba(0,200,83,0.4);
+    }
+
+    .service-card h3 {
+        color: #00c853;
+        margin-bottom: 10px;
+    }
+
+    .service-card p {
+        color: #ccc;
+        font-size: 0.95rem;
+    }
+
+    /* Why Choose Section */
+    .why-choose {
+        max-width: 950px;
+        margin: 0 auto 60px auto;
+        padding: 0 20px;
+        text-align: center;
+    }
+
+    .why-choose h2 {
+        color: #ffd700;
+        font-size: 2rem;
+        margin-bottom: 25px;
+    }
+
+    .why-choose p {
+        color: #ccc;
+        font-size: 1rem;
+        margin-bottom: 15px;
+        line-height: 1.6;
+    }
+
+    /* Testimonials Section */
+    .testimonials {
+        background: #1e1e1e;
+        padding: 50px 20px;
+        text-align: center;
+    }
+
+    .testimonials h2 {
+        color: #ffd700;
+        font-size: 2rem;
+        margin-bottom: 30px;
+    }
+
+    .testimonial-card {
+        max-width: 700px;
+        margin: 0 auto 25px auto;
+        padding: 20px;
+        background: #121212;
+        border-radius: 12px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+        font-style: italic;
+    }
+
+    .testimonial-card p {
+        color: #ccc;
+    }
+
+    .testimonial-card span {
+        display: block;
+        margin-top: 10px;
+        font-weight: bold;
+        color: #00c853;
+    }
+
+    /* Footer */
+    footer {
+        background: #0d0d0d;
+        text-align: center;
+        padding: 25px;
+        border-top: 2px solid #00c853;
+        color: #777;
+    }
+
+    footer a {
+        color: #00c853;
+        text-decoration: none;
+        margin: 0 5px;
+    }
+
+    footer a:hover {
+        color: #00e676;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>FinWise</h1>
+    <p>FinWise helps you manage your money smarter — track expenses, plan investments, optimize taxes, and reach your financial goals faster.</p>
+    <div class="hero-buttons">
+        <button class="get-started" onclick="location.href='dashboard.html'">Get Started</button>
+        <button class="learn-more" onclick="location.href='#services'">Learn More</button>
+    </div>
+</header>
+
+<section id="services" class="services">
+    <div class="service-card" onclick="location.href='budget.html'">
+        <h3>💰 Budget Management</h3>
+        <p>Track income & expenses, visualize spending, and get alerts for overspending.</p>
+    </div>
+    <div class="service-card" onclick="location.href='investment.html'">
+        <h3>📈 Investment Planning</h3>
+        <p>Personalized investment suggestions and portfolio tracking for stocks, mutual funds, and crypto.</p>
+    </div>
+    <div class="service-card" onclick="location.href='tax.html'">
+        <h3>🧾 Tax Management</h3>
+        <p>Calculate taxes, get reminders, store documents, and discover tax-saving strategies.</p>
+    </div>
+    <div class="service-card" onclick="location.href='loan.html'">
+        <h3>🏦 Loan & Credit</h3>
+        <p>Track loans, calculate EMIs, and monitor credit scores with expert tips.</p>
+    </div>
+    <div class="service-card" onclick="location.href='savings.html'">
+        <h3>🎯 Savings & Goals</h3>
+        <p>Set goals, automate savings, and monitor progress for your financial targets.</p>
+    </div>
+</section>
+
+<section class="why-choose">
+    <h2>Why Choose FinWise?</h2>
+    <p><strong>Personalized Dashboard:</strong> Monitor your net worth, cash flow, and savings at a glance.</p>
+    <p><strong>Advanced Tools:</strong> Budget planner, EMI calculator, retirement planner, and tax estimator.</p>
+    <p><strong>Secure & Trusted:</strong> Data encrypted with multi-user family support.</p>
+    <p><strong>Learning Center:</strong> Expert blogs, guides, and tips to boost your financial literacy.</p>
+</section>
+
+<section class="testimonials">
+    <h2>What Our Users Say</h2>
+    <div class="testimonial-card">
+        <p>"FinWise completely changed the way I manage money. I can track my spending, invest wisely, and save effortlessly!"</p>
+        <span>— Priya S., Student</span>
+    </div>
+    <div class="testimonial-card">
+        <p>"As a small business owner, FinWise helps me plan cash flow, track loans, and optimize taxes all in one place."</p>
+        <span>— Rajesh K., Entrepreneur</span>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2025 FinWise. All rights reserved.</p>
+    <p>Quick Links: <a href="budget.html">Budget</a> | <a href="investment.html">Investment</a> | <a href="tax.html">Tax</a> | <a href="loan.html">Loan</a> | <a href="savings.html">Savings</a> | <a href="blog.html">Blog</a></p>
+</footer>
+
+</body>
+</html>
